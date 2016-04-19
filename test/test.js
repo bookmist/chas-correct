@@ -53,40 +53,16 @@ QUnit.test( "test actionArrayCopy", function( assert ) {
   assert.equal( Array.isArray(actionArrayCopy), true, 'actionArrayCopy is array' );
   assert.equal( actionArrayCopy.length, 1029, 'actionArrayCopy fully created' );
 });
-RegExp.prototype.toJSON = RegExp.prototype.toString;
+//RegExp.prototype.toJSON = function (){return [this.source,this.flags]};
+//RegExp.prototype.toString;
 
 function saveActionArray(){
   storageWrapper.setKey('actionArrayCopy',actionArrayCopy);
 };
-
-function loadActionArray(){
-var actionArrayCopy2;
-var actionArrayCopy3;
-var rel= new RegExp('/(.+)/([gmi]{0,2})');
-var res;
-  actionArrayCopy2 = storageWrapper.getKey('actionArrayCopy',undefined);
-  //newm = Date.now();
-  actionArrayCopy3=Array(actionArrayCopy2.length);
-  //actionArrayCopy3=[];
-  //actionArrayCopy3.length = actionArrayCopy2.length;
-  actionArrayCopy2.forEach(function(item, i, arr){
-    actionArrayCopy3[i]=Array(item.length);
-    res=rel.exec(item[0]);
-    actionArrayCopy3[i][0] = new RegExp(res[1],res[2]);
-    actionArrayCopy3[i][1] = item[1];
-    res=rel.exec(item[2]);
-    actionArrayCopy3[i][2] = new RegExp(res[1],res[2]);
-    if (!!item[3]) { actionArrayCopy3[i][3] = item[3];};
-  });
-  return actionArrayCopy3;
-};
-       
+/*
 function loadActionArray2(){
-var actionArrayCopy2;
-var actionArrayCopy3;
-var rel= new RegExp('/(.+)/([gmi]{0,2})');
-var res;
-  actionArrayCopy2 = storageWrapper.getKey('actionArrayCopy','error',function(key,value){
+
+  var actionArrayCopy2 = storageWrapper.getKey('actionArrayCopy','error',function(key,value){
     if (Array.isArray(value)){
       if (value.length===2) {
         return new RegExp(value[0],value[1]);
@@ -95,62 +71,76 @@ var res;
     return value;
   });
   return actionArrayCopy2;
-/*  //newm = Date.now();
-  actionArrayCopy3=Array(actionArrayCopy2.length);
-  //actionArrayCopy3=[];
-  //actionArrayCopy3.length = actionArrayCopy2.length;
+};
+*//*
+function loadActionArray2(){
+  var actionArrayCopy2 = storageWrapper.getKey('actionArrayCopy','error');
+  var actionArrayCopy3=Array(actionArrayCopy2.length);
   actionArrayCopy2.forEach(function(item, i, arr){
     actionArrayCopy3[i]=Array(item.length);
-    res=rel.exec(item[0]);
-    actionArrayCopy3[i][0] = new RegExp(res[1],res[2]);
+    actionArrayCopy3[i][0] = new RegExp(actionArrayCopy2[i][0][0],actionArrayCopy2[i][0][1]);
     actionArrayCopy3[i][1] = item[1];
-    res=rel.exec(item[2]);
-    actionArrayCopy3[i][2] = new RegExp(res[1],res[2]);
+    actionArrayCopy3[i][2] = new RegExp(actionArrayCopy2[i][2][0],actionArrayCopy2[i][2][1]);
     if (!!item[3]) { actionArrayCopy3[i][3] = item[3];};
   });
-  return actionArrayCopy3;*/
+  return actionArrayCopy3;
+};  */
+
+function loadActionArray2(){
+  var actionArrayCopy3 = storageWrapper.getKey('actionArrayCopy','error');
+  actionArrayCopy3.forEach(function(item){
+    item[0] = new RegExp(item[0][0],item[0][1]);
+    item[2] = new RegExp(item[2][0],item[2][1]);
+  });
+  return actionArrayCopy3;
 };
-       
+/*
+function loadActionArray2(){
+  var actionArrayCopy3 = storageWrapper.getKey('actionArrayCopy','error');
+  actionArrayCopy3.forEach(function(item){
+    item[0] = new RegExp(item[0].source,item[0].flags);
+    item[2] = new RegExp(item[2].source,item[2].flags);
+  });
+  return actionArrayCopy3;
+};*/
+
+function debugLog(msg){
+  var div = document.getElementById('chas-correct-log');
+  div.innerHTML = div.innerHTML + '<br>' + msg;
+};
+
 QUnit.test( "test save actionArrayCopy to storage", function( assert ) {  
 var oldb,olde,newb,newe,newm;
-var actionArrayCopy2;
 var actionArrayCopy3;
-var rel= new RegExp('/(.+)/([gmi]{0,2})');
-var res;
+
 oldb = Date.now();
 prepareActionArray();
 olde = Date.now();
-  storageWrapper.setKey('actionArrayCopy',actionArrayCopy/*,function(key,value){
+  storageWrapper.setKey('actionArrayCopy',actionArrayCopy,function(key,value){
     if (value instanceof RegExp) {
-      return [value.source,value,flags];
+      return [value.source,value.flags];
     };
     return value;
-  }*/);
+  });
   assert.ok( storageWrapper.getKey('actionArrayCopy','error') !== 'error' , 'actionArrayCopy successfully saved' );
-  //saveActionArray;
   newb = Date.now();
-/*  actionArrayCopy2 = storageWrapper.getKey('actionArrayCopy',undefined);
-  newm = Date.now();
-  actionArrayCopy3=Array(actionArrayCopy2.length);
-  //actionArrayCopy3=[];
-  //actionArrayCopy3.length = actionArrayCopy2.length;
-  actionArrayCopy2.forEach(function(item, i, arr){
-    actionArrayCopy3[i]=Array(item.length);
-    res=rel.exec(item[0]);
-    actionArrayCopy3[i][0] = new RegExp(res[1],res[2]);
-    actionArrayCopy3[i][1] = item[1];
-    res=rel.exec(item[2]);
-    actionArrayCopy3[i][2] = new RegExp(res[1],res[2]);
-    if (!!item[3]) { actionArrayCopy3[i][3] = item[3];};
-  });*/
   actionArrayCopy3 = loadActionArray2();
   newe = Date.now();
+
   assert.equal( JSON.stringify( actionArrayCopy3), JSON.stringify( actionArrayCopy) , 'actionArrayCopy successfully saved and loaded' );
-  assert.ok( (olde-oldb)>(newe-newb), "New is faster!!! old:"+ (olde-oldb) + " new:" +(newe-newb) /*+" load:"+(newm-newb)+ " parce:"+(newe-newm) */);
+  assert.equal( Array.isArray(actionArrayCopy), true, 'actionArrayCopy is array' );
+  assert.equal( actionArrayCopy.length, 1029, 'actionArrayCopy fully created' );
+  assert.equal( Array.isArray(actionArrayCopy3), true, 'actionArrayCopy3 is array' );
+  assert.equal( actionArrayCopy3.length, 1029, 'actionArrayCopy3 fully created' );
+  assert.equal( typeof actionArrayCopy3[0][0], 'object','Array of regexps');
+  assert.ok( actionArrayCopy3[0][0] instanceof RegExp,'Array of regexps');
+  //debugLog(JSON.stringify( actionArrayCopy3));
+  assert.ok( (olde-oldb)>(newe-newb), "New is faster!!! old:"+ (olde-oldb) + " new:" +(newe-newb) /*+" load:"+(newm-newb)+ " parce:"+(newe-newm) */);  
   GM_deleteValue('actionArrayCopy');
 });
-          
+/*          
 QUnit.test( "test json regexp", function( assert ) {
   var x = new RegExp('text'); 
   assert.equal( JSON.parse(JSON.stringify(x)), x, 'success' );
 });
+*/
