@@ -39,21 +39,22 @@ This file is part of CHAS-CORRECT.
 
 var storageWrapper={
 	///Обёртка над хранилищем, в данном случае - GreaseMonkey
-	getKey: function(key,defaultValue){
-		try {
+	getKey: function(key,defaultValue,reviver){
+		//try {
 			var val = GM_getValue(key);
 			if (val === undefined) {
 				return defaultValue;
 			} else {
-				return JSON.parse(val);
+				return JSON.parse(val,reviver);
 			};
-		} catch (e) { 
+/*		} catch (e) { 
 			return defaultValue 
 		};
-	},
-	setKey: function(key,value){
-		GM_setValue(key,JSON.stringify(value));
+  */	},
+	setKey: function(key,value,replacer){
+		GM_setValue(key,JSON.stringify(value,replacer));
 	},
 };
 
+GM_registerMenuCommand('Править типографию',forceTypo);
 

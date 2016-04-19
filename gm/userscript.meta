@@ -7,5 +7,6 @@
 // @version       0.2.0.4
 // @grant	  GM_getValue
 // @grant	  GM_setValue
+// @grant	  GM_registerMenuCommand
 // @license       GNU GPLv3
 // ==/UserScript==
