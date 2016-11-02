@@ -47,7 +47,7 @@ try{
 var actionArray;
 
 function prepareActionArray() {  //try {
-var wordSplitSymbol="([^А-Яа-яЁёA-Za-z]|^|$)";
+var wordSplitSymbol="([^А-Яа-яЁёA-Za-z\u00AD]|^|$)"; // 0xAD - "мягкий перенос"
 var leftEnd="(.|^)";//TODO: переписать так, чтобы стал не нужен
 actionArray=[
 	[/[ь]{2,}/g,"ь",/ьь/i],

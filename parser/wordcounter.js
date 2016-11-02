@@ -40,6 +40,7 @@ Wordcounter.prototype.getJSON=function(){
 }
 
 Wordcounter.prototype.writeFiles=function(filename){
+	console.log('Начинаем записывать словарь...');
 	this.addText(this.textBuffer);
 	var json=this.getJSON();
 	fs.writeFileSync(filename+'.words.json',json);
@@ -58,13 +59,16 @@ Wordcounter.prototype.writeFiles=function(filename){
 
 	var text='';
 	var html='';
+	var forYaspeller='';
 	for(var i=0;i<freqs.length; i++){
 		text += freqs[i][0]+ ' : '+freqs[i][1]+'\r\n';
 		html += '<tr><td>'+freqs[i][0]+ '</td><td>'+freqs[i][1]+'</td></tr>\n';
+		forYaspeller += freqs[i][0]+';';
 	}
 
 
 	fs.writeFileSync(filename+'.words.txt',text);
+	fs.writeFileSync(filename+'.words.yaspeller',forYaspeller);
 	fs.writeFileSync(filename+'.words.html',
 		'<html><head><meta charset="utf-8"/></head><body>\n'+
 		'Всего слов: '+this.wordsCount+'<br/>\n'+
