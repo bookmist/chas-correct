@@ -48,11 +48,11 @@ QUnit.test( "test storageWrapper.setKey obj", function( assert ) {
 QUnit.test( "test forceTypo exists", function( assert ) {  
   assert.equal( typeof forceTypo, 'function', 'forceTypo is function' );
 });
-
+                                      /*
 QUnit.test( "test actionArrayCopy", function( assert ) {  
   assert.equal( Array.isArray(actionArrayCopy), true, 'actionArrayCopy is array' );
   assert.equal( actionArrayCopy.length, 1029, 'actionArrayCopy fully created' );
-});
+});                                     */
 //RegExp.prototype.toJSON = function (){return [this.source,this.flags]};
 //RegExp.prototype.toString;
 
@@ -85,7 +85,7 @@ function loadActionArray2(){
   });
   return actionArrayCopy3;
 };  */
-
+                    /*
 function loadActionArray2(){
   var actionArrayCopy3 = storageWrapper.getKey('actionArrayCopy','error');
   actionArrayCopy3.forEach(function(item){
@@ -108,7 +108,7 @@ function debugLog(msg){
   var div = document.getElementById('chas-correct-log');
   div.innerHTML = div.innerHTML + '<br>' + msg;
 };
-
+              /*
 QUnit.test( "test save actionArrayCopy to storage", function( assert ) {  
 var oldb,olde,newb,newe,newm;
 var actionArrayCopy3;
@@ -135,7 +135,7 @@ olde = Date.now();
   assert.equal( typeof actionArrayCopy3[0][0], 'object','Array of regexps');
   assert.ok( actionArrayCopy3[0][0] instanceof RegExp,'Array of regexps');
   //debugLog(JSON.stringify( actionArrayCopy3));
-  assert.ok( (olde-oldb)>(newe-newb), "New is faster!!! old:"+ (olde-oldb) + " new:" +(newe-newb) /*+" load:"+(newm-newb)+ " parce:"+(newe-newm) */);  
+  assert.ok( (olde-oldb)>(newe-newb), "New is faster!!! old:"+ (olde-oldb) + " new:" +(newe-newb) ); // +" load:"+(newm-newb)+ " parce:"+(newe-newm) );
   GM_deleteValue('actionArrayCopy');
 });
 /*          
