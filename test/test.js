@@ -144,3 +144,8 @@ QUnit.test( "test json regexp", function( assert ) {
   assert.equal( JSON.parse(JSON.stringify(x)), x, 'success' );
 });
 */
+
+QUnit.test( "test showConfig", function( assert ) {
+  showConfig();
+  assert.ok( true, "Passed!!!" );
+});

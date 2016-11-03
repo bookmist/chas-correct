@@ -1806,7 +1806,13 @@ QUnit.test( "test json regexp", function( assert ) {
   var x = new RegExp('text'); 
   assert.equal( JSON.parse(JSON.stringify(x)), x, 'success' );
 });
-*//*
+*/
+
+QUnit.test( "test showConfig", function( assert ) {
+  showConfig();
+  assert.ok( true, "Passed!!!" );
+});
+/*
 Copyright Nikolay Avdeev aka NickKolok aka РќРёРєРѕР»Р°Р№ РђРІРґРµРµРІ 2015
 
 Р’СЃРµРј РїСЂРёРІРµС‚ РёР· СЃРЅРµР¶РЅРѕРіРѕ Р’РѕСЂРѕРЅРµР¶Р°! 
@@ -2451,12 +2457,12 @@ function handleLayoutFix(arr){
 ////////////////////////////////////////////////////////////////////////
 
 firstRun();
-/*Настройки скрипта для GreaseMonkey*/
+/*РќР°СЃС‚СЂРѕР№РєРё СЃРєСЂРёРїС‚Р° РґР»СЏ GreaseMonkey*/
 /*
-Copyright Nikolay Avdeev aka NickKolok aka Николай Авдеев 2015
-Copyright Dmitry Roshka aka Bookmist aka Дмитрий рошка 2016
+Copyright Nikolay Avdeev aka NickKolok aka РќРёРєРѕР»Р°Р№ РђРІРґРµРµРІ 2015
+Copyright Dmitry Roshka aka Bookmist aka Р”РјРёС‚СЂРёР№ СЂРѕС€РєР° 2016
 
-Всем привет из снежного Воронежа! 
+Р’СЃРµРј РїСЂРёРІРµС‚ РёР· СЃРЅРµР¶РЅРѕРіРѕ Р’РѕСЂРѕРЅРµР¶Р°! 
 
 This file is part of CHAS-CORRECT.
 
@@ -2473,21 +2479,64 @@ This file is part of CHAS-CORRECT.
     You should have received a copy of the GNU General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-  (Этот файл — часть CHAS-CORRECT.
+  (Р­С‚РѕС‚ С„Р°Р№Р» вЂ” С‡Р°СЃС‚СЊ CHAS-CORRECT.
 
-   CHAS-CORRECT - свободная программа: вы можете перераспространять её и/или
-   изменять её на условиях Стандартной общественной лицензии GNU в том виде,
-   в каком она была опубликована Фондом свободного программного обеспечения;
-   либо версии 3 лицензии, либо (по вашему выбору) любой более поздней
-   версии.
+   CHAS-CORRECT - СЃРІРѕР±РѕРґРЅР°СЏ РїСЂРѕРіСЂР°РјРјР°: РІС‹ РјРѕР¶РµС‚Рµ РїРµСЂРµСЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏС‚СЊ РµС‘ Рё/РёР»Рё
+   РёР·РјРµРЅСЏС‚СЊ РµС‘ РЅР° СѓСЃР»РѕРІРёСЏС… РЎС‚Р°РЅРґР°СЂС‚РЅРѕР№ РѕР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р»РёС†РµРЅР·РёРё GNU РІ С‚РѕРј РІРёРґРµ,
+   РІ РєР°РєРѕРј РѕРЅР° Р±С‹Р»Р° РѕРїСѓР±Р»РёРєРѕРІР°РЅР° Р¤РѕРЅРґРѕРј СЃРІРѕР±РѕРґРЅРѕРіРѕ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ;
+   Р»РёР±Рѕ РІРµСЂСЃРёРё 3 Р»РёС†РµРЅР·РёРё, Р»РёР±Рѕ (РїРѕ РІР°С€РµРјСѓ РІС‹Р±РѕСЂСѓ) Р»СЋР±РѕР№ Р±РѕР»РµРµ РїРѕР·РґРЅРµР№
+   РІРµСЂСЃРёРё.
 
-   CHAS-CORRECT распространяется в надежде, что она будет полезной,
-   но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
-   или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
-   общественной лицензии GNU.
+   CHAS-CORRECT СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµС‚СЃСЏ РІ РЅР°РґРµР¶РґРµ, С‡С‚Рѕ РѕРЅР° Р±СѓРґРµС‚ РїРѕР»РµР·РЅРѕР№,
+   РЅРѕ Р‘Р•Р—Рћ Р’РЎРЇРљРРҐ Р“РђР РђРќРўРР™; РґР°Р¶Рµ Р±РµР· РЅРµСЏРІРЅРѕР№ РіР°СЂР°РЅС‚РёРё РўРћР’РђР РќРћР“Рћ Р’РР”Рђ
+   РёР»Рё РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РћРџР Р•Р”Р•Р›Р•РќРќР«РҐ Р¦Р•Р›Р•Р™. РџРѕРґСЂРѕР±РЅРµРµ СЃРј. РІ РЎС‚Р°РЅРґР°СЂС‚РЅРѕР№
+   РѕР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р»РёС†РµРЅР·РёРё GNU.
 
-   Вы должны были получить копию Стандартной общественной лицензии GNU
-   вместе с этой программой. Если это не так, см.
+   Р’С‹ РґРѕР»Р¶РЅС‹ Р±С‹Р»Рё РїРѕР»СѓС‡РёС‚СЊ РєРѕРїРёСЋ РЎС‚Р°РЅРґР°СЂС‚РЅРѕР№ РѕР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р»РёС†РµРЅР·РёРё GNU
+   РІРјРµСЃС‚Рµ СЃ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјРѕР№. Р•СЃР»Рё СЌС‚Рѕ РЅРµ С‚Р°Рє, СЃРј.
    <http://www.gnu.org/licenses/>.)
 */
 
+function showConfig(){
+  //СЃРѕР·РґР°РµРј РѕРєРЅРѕ
+  var div = document.createElement('div');
+  div.textContent = 'Hello, world!';
+  div.style.border = '2px solid gray';
+  //СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ
+  div.style.position='absolute';
+  div.style.align = 'center';
+  div.style.width = '800px';
+  div.style.height = '800px';
+  div.style.top = 0;
+  div.style.right = 0;
+  div.style.bottom = 0;
+  div.style.left = 0;
+  div.style.margin = 'auto';  
+  //РєРѕРЅРµС† СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ РїРѕ С†РµРЅС‚СЂСѓ
+  div.style.background = 'white';
+  var tblDiv = document.createElement('div');
+  tblDiv.style.overflow = 'auto';
+  tblDiv.style.width = 700;
+  tblDiv.style.height = 700;
+  div.appendChild( tblDiv );
+  var tblBody = document.createElement('table');
+  tblBody.style.width = 600;
+  tblBody.style.border = '1px solid gray';
+  var tblRow = document.createElement('tr');
+  tblBody.appendChild(tblRow);
+  var tblCell = document.createElement('td');
+  tblCell.style.border = '1px solid gray';
+  tblCell.textContent = 'left cell';
+  tblRow.appendChild(tblCell);
+  tblCell = document.createElement('td');
+  tblCell.style.border = '1px solid gray';
+  tblCell.textContent = 'right cell';
+  tblRow.appendChild(tblCell);
+  
+  tblDiv.appendChild( tblBody );
+  //РІС‹РІРѕРґРёРј РЅР°СЃС‚СЂРѕР№РєРё
+  //РїСЂРёРєР»РµРёРІР°РµРј РѕРєРЅРѕ Рє СЃС‚СЂР°РЅРёС†Рµ
+  document.body.appendChild(div);
+};
+
+GM_registerMenuCommand('РџРѕРєР°Р·Р°С‚СЊ РЅР°СЃС‚СЂРѕР№РєРё',showConfig);

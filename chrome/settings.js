@@ -40,7 +40,44 @@ This file is part of CHAS-CORRECT.
 
 function showConfig(){
   //создаем окно
+  var div = document.createElement('div');
+  div.textContent = 'Hello, world!';
+  div.style.border = '2px solid gray';
+  //расположение по центру
+  div.style.position='absolute';
+  div.style.align = 'center';
+  div.style.width = '800px';
+  div.style.height = '800px';
+  div.style.top = 0;
+  div.style.right = 0;
+  div.style.bottom = 0;
+  div.style.left = 0;
+  div.style.margin = 'auto';  
+  //конец расположения по центру
+  div.style.background = 'white';
+  var tblDiv = document.createElement('div');
+  tblDiv.style.overflow = 'auto';
+  tblDiv.style.width = 700;
+  tblDiv.style.height = 700;
+  div.appendChild( tblDiv );
+  var tblBody = document.createElement('table');
+  tblBody.style.width = 600;
+  tblBody.style.border = '1px solid gray';
+  var tblRow = document.createElement('tr');
+  tblBody.appendChild(tblRow);
+  var tblCell = document.createElement('td');
+  tblCell.style.border = '1px solid gray';
+  tblCell.textContent = 'left cell';
+  tblRow.appendChild(tblCell);
+  tblCell = document.createElement('td');
+  tblCell.style.border = '1px solid gray';
+  tblCell.textContent = 'right cell';
+  tblRow.appendChild(tblCell);
+  
+  tblDiv.appendChild( tblBody );
   //выводим настройки
+  //приклеиваем окно к странице
+  document.body.appendChild(div);
 };
 
 GM_registerMenuCommand('Показать настройки',showConfig);
